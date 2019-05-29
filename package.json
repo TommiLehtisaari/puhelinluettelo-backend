@@ -9,18 +9,27 @@
     "build:ui": "rm -rf build && cd ../../osa2/puhelinluettelo/ && yarn build && cp -r build ../../osa3/puhelinluettelo-backend/",
     "deploy": "git push heroku master",
     "deploy:full": "yarn build:ui && git add . && git commit -m uibuild && git push && yarn deploy",
-    "logs:prod": "heroku logs --tail"
+    "logs:prod": "heroku logs --tail",
+    "lint": "eslint ."
   },
   "engines": {
-    "node": "10.x"
+    "node": "11.14.0"
   },
   "proxy": "http://localhost:3001",
   "devDependencies": {
-    "nodemon": "^1.19.1"
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.13.0",
+    "nodemon": "^1.19.1",
+    "prettier": "^1.17.1"
   },
   "dependencies": {
+    "config": "^3.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "mongoose": "^5.5.11",
+    "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.9.1"
   }
 }
