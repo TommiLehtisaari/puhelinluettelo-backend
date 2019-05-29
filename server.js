@@ -26,16 +26,19 @@ app.get('/api/persons', (req, res) => {
   })
 })
 
-app.post('/api/persons', (req, res) => {
+app.post('/api/persons', (req, res, next) => {
   const { name, number } = req.body
   if (!name) return res.status(400).send({ error: 'name required' })
   if (!number) return res.status(400).send({ error: 'number required' })
 
   const person = new Person({ name, number })
 
-  person.save().then(savedPerson => {
-    res.send(savedPerson.toJSON())
-  })
+  person
+    .save()
+    .then(savedPerson => {
+      res.send(savedPerson.toJSON())
+    })
+    .catch(error => next(error))
 })
 
 app.get('/api/persons/:id', (req, res, next) => {
@@ -80,6 +83,8 @@ const errorHandler = (error, req, res, next) => {
 
   if (error.name === 'CastError' && error.kind == 'ObjectId') {
     return res.status(400).send({ error: 'mallformatted id' })
+  } else if (error.name === 'ValidationError') {
+    return res.status(400).send({ error: error.message })
   }
 
   next(error)

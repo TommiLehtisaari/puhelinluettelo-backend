@@ -15,7 +15,6 @@
   "engines": {
     "node": "11.14.0"
   },
-  "proxy": "http://localhost:3001",
   "devDependencies": {
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.3.0",
